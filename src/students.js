@@ -48,7 +48,10 @@ function update(id, data) {
 }
 
 function remove(id) {
-  return null;
+  const index = students.findIndex(s => s.id === id);
+  if (index === -1) return null;
+  students.splice(index, 1);
+  return true;
 }
 
 module.exports = { getAll, getById, create, update, remove };

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getAll, getById, create, update } = require('../src/students');
+const { getAll, getById, create, update, remove } = require('../src/students');
 
 router.get('/', (req, res) => {
   const students = getAll();
@@ -38,7 +38,8 @@ router.put('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-  res.status(501).json({ success: false, message: '接口待实现' });
+  remove(req.params.id);
+  res.json({ success: true });
 });
 
 module.exports = router;

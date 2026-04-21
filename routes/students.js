@@ -10,6 +10,17 @@ router.get('/', (req, res) => {
   res.json({ success: true, data: sorted, total: sorted.length });
 });
 
+router.get('/search', (req, res) => {
+  const { name, major, page = 1, limit = 10 } = req.query;
+  let results = getAll();
+  if (name) results = results.filter(s => s.name.includes(name));
+  if (major) results = results.filter(s => s.major.includes(major));
+  const total = results.length;
+  const start = (page - 1) * limit;
+  const paged = results.slice(start, start + Number(limit));
+  res.json({ success: true, data: paged, total, page: Number(page), limit: Number(limit) });
+});
+
 router.get('/:id', (req, res) => {
   const student = getById(req.params.id);
   if (!student) {
@@ -44,17 +55,6 @@ router.delete('/:id', (req, res) => {
   }
   remove(req.params.id);
   res.json({ success: true, data: student, message: '删除成功' });
-});
-
-router.get('/search', (req, res) => {
-  const { name, major, page = 1, limit = 10 } = req.query;
-  let results = getAll();
-  if (name) results = results.filter(s => s.name.includes(name));
-  if (major) results = results.filter(s => s.major.includes(major));
-  const total = results.length;
-  const start = (page - 1) * limit;
-  const paged = results.slice(start, start + Number(limit));
-  res.json({ success: true, data: paged, total, page: Number(page), limit: Number(limit) });
 });
 
 module.exports = router;

@@ -22,6 +22,10 @@ app.get('/', (req, res) => {
 
 app.use('/api/students', studentRouter);
 
-app.listen(PORT, () => {
-  console.log(`服务器运行在 http://localhost:${PORT}`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`服务器运行在 http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;

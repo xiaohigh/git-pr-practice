@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getAll, getById } = require('../src/students');
+const { getAll, getById, create } = require('../src/students');
 
 router.get('/', (req, res) => {
   const students = getAll();
@@ -16,7 +16,11 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  res.status(501).json({ success: false, message: '接口待实现' });
+  const result = create(req.body);
+  if (result.error) {
+    return res.status(400).json({ success: false, message: result.error });
+  }
+  res.status(201).json({ success: true, data: result });
 });
 
 router.put('/:id', (req, res) => {

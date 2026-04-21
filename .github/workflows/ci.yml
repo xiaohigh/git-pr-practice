@@ -7,7 +7,8 @@ on:
     branches: [ main ]
 
 jobs:
-  test:
+  lint:
+    name: 代码规范检查
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -15,4 +16,26 @@ jobs:
         with:
           node-version: 20
       - run: npm install
-      - run: npm test
+      - run: npm run lint
+
+  test:
+    name: 单元测试 + 接口测试
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - run: npm run test:cov
+
+  audit:
+    name: 安全审计
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - run: npm audit --audit-level=moderate

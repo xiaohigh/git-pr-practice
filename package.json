@@ -6,12 +6,16 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "node --watch src/app.js",
-    "test": "jest --verbose"
+    "lint": "eslint .",
+    "test": "jest --verbose",
+    "test:cov": "jest --coverage"
   },
   "dependencies": {
     "express": "^4.21.0"
   },
   "devDependencies": {
+    "eslint": "^10.2.1",
+    "globals": "^17.5.0",
     "jest": "^30.3.0",
     "supertest": "^7.2.2"
   }

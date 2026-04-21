@@ -38,8 +38,12 @@ router.put('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
+  const student = getById(req.params.id);
+  if (!student) {
+    return res.status(404).json({ success: false, message: '学生不存在' });
+  }
   remove(req.params.id);
-  res.json({ success: true });
+  res.json({ success: true, data: student, message: '删除成功' });
 });
 
 module.exports = router;

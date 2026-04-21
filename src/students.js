@@ -34,7 +34,17 @@ function create(data) {
 }
 
 function update(id, data) {
-  return null;
+  const index = students.findIndex(s => s.id === id);
+  if (index === -1) return null;
+  if (data.name !== undefined && (typeof data.name !== 'string' || !data.name.trim())) {
+    return { error: 'name 不能为空' };
+  }
+  if (data.age !== undefined && typeof data.age !== 'number') {
+    return { error: 'age 必须为数字' };
+  }
+  students[index] = { ...students[index], ...data };
+  if (data.name) students[index].name = data.name.trim();
+  return students[index];
 }
 
 function remove(id) {

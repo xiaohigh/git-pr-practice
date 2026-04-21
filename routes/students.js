@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { getAll, getById, create } = require('../src/students');
+const { getAll, getById, create, update } = require('../src/students');
 
 router.get('/', (req, res) => {
   const students = getAll();
-  res.json({ success: true, data: students, total: students.length });
+  const { major } = req.query;
+  const filtered = major ? students.filter(s => s.major === major) : students;
+  res.json({ success: true, data: filtered, total: filtered.length });
 });
 
 router.get('/:id', (req, res) => {
@@ -24,7 +26,14 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  res.status(501).json({ success: false, message: '接口待实现' });
+  const result = update(req.params.id, req.body);
+  if (!result) {
+    return res.status(404).json({ success: false, message: '学生不存在' });
+  }
+  if (result.error) {
+    return res.status(400).json({ success: false, message: result.error });
+  }
+  res.json({ success: true, data: result });
 });
 
 router.delete('/:id', (req, res) => {

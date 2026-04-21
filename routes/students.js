@@ -4,7 +4,8 @@ const { getAll, getById, create } = require('../src/students');
 
 router.get('/', (req, res) => {
   const students = getAll();
-  res.json({ success: true, data: students, total: students.length });
+  const sorted = [...students].sort((a, b) => a.age - b.age);
+  res.json({ success: true, data: sorted, total: sorted.length });
 });
 
 router.get('/:id', (req, res) => {

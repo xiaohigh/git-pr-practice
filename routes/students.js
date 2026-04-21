@@ -23,7 +23,7 @@ router.put('/:id', (req, res) => {
   res.status(501).json({ success: false, message: '接口待实现' });
 });
 
-erouter.delete('/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
   res.status(501).json({ success: false, message: '接口待实现' });
 });
 

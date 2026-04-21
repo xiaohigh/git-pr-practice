@@ -47,10 +47,14 @@ router.delete('/:id', (req, res) => {
 });
 
 router.get('/search', (req, res) => {
-  const { name } = req.query;
-  const students = getAll();
-  const results = name ? students.filter(s => s.name.includes(name)) : students;
-  res.json({ success: true, data: results, total: results.length });
+  const { name, major, page = 1, limit = 10 } = req.query;
+  let results = getAll();
+  if (name) results = results.filter(s => s.name.includes(name));
+  if (major) results = results.filter(s => s.major.includes(major));
+  const total = results.length;
+  const start = (page - 1) * limit;
+  const paged = results.slice(start, start + Number(limit));
+  res.json({ success: true, data: paged, total, page: Number(page), limit: Number(limit) });
 });
 
 module.exports = router;

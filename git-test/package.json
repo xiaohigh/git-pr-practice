@@ -1,0 +1,13 @@
+{
+  "name": "student-api",
+  "version": "1.0.0",
+  "description": "学生管理系统 REST API - GitHub PR 练习项目",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "node --watch src/app.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0"
+  }
+}

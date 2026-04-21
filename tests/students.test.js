@@ -6,8 +6,9 @@ beforeEach(() => {
     remove(getAll()[0].id);
   }
   getAll().push(
-    { id: '1', name: '张三', age: 20, major: '计算机科学' }
-    // BUG: 故意漏掉李四和王五，触发 CI 失败
+    { id: '1', name: '张三', age: 20, major: '计算机科学' },
+    { id: '2', name: '李四', age: 22, major: '软件工程' },
+    { id: '3', name: '王五', age: 21, major: '数据科学' }
   );
 });
 

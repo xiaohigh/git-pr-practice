@@ -17,7 +17,20 @@ function getById(id) {
 }
 
 function create(data) {
-  return null;
+  if (!data.name || typeof data.name !== 'string' || !data.name.trim()) {
+    return { error: 'name 为必填项' };
+  }
+  if (data.age !== undefined && typeof data.age !== 'number') {
+    return { error: 'age 必须为数字' };
+  }
+  const student = {
+    id: generateId(),
+    name: data.name.trim(),
+    age: data.age || 0,
+    major: data.major || '未指定'
+  };
+  students.push(student);
+  return student;
 }
 
 function update(id, data) {

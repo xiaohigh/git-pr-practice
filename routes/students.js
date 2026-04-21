@@ -46,4 +46,11 @@ router.delete('/:id', (req, res) => {
   res.json({ success: true, data: student, message: '删除成功' });
 });
 
+router.get('/search', (req, res) => {
+  const { name } = req.query;
+  const students = getAll();
+  const results = name ? students.filter(s => s.name.includes(name)) : students;
+  res.json({ success: true, data: results, total: results.length });
+});
+
 module.exports = router;

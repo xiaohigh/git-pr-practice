@@ -6,7 +6,8 @@ router.get('/', (req, res) => {
   const students = getAll();
   const { major } = req.query;
   const filtered = major ? students.filter(s => s.major === major) : students;
-  res.json({ success: true, data: filtered, total: filtered.length });
+  const sorted = [...filtered].sort((a, b) => a.age - b.age);
+  res.json({ success: true, data: sorted, total: sorted.length });
 });
 
 router.get('/:id', (req, res) => {

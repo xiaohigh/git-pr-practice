@@ -46,6 +46,19 @@ router.get('/stats', (req, res) => {
   res.json({ success: true, data: { total, avgAge, majorCount } });
 });
 
+router.get('/majors', (req, res) => {
+  const students = getAll();
+  const majorSet = [...new Set(students.map(s => s.major))];
+  res.json({ success: true, data: majorSet, total: majorSet.length });
+});
+
+router.delete('/clear', (req, res) => {
+  const students = getAll();
+  const count = students.length;
+  students.forEach(s => remove(s.id));
+  res.json({ success: true, message: `已清空 ${count} 条数据` });
+});
+
 router.get('/:id', (req, res) => {
   const student = getById(req.params.id);
   if (!student) {

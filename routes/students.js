@@ -21,6 +21,17 @@ router.get('/search', (req, res) => {
   res.json({ success: true, data: paged, total, page: Number(page), limit: Number(limit) });
 });
 
+router.get('/stats', (req, res) => {
+  const students = getAll();
+  const total = students.length;
+  const avgAge = total ? +(students.reduce((sum, s) => sum + s.age, 0) / total).toFixed(1) : 0;
+  const majorCount = {};
+  students.forEach(s => {
+    majorCount[s.major] = (majorCount[s.major] || 0) + 1;
+  });
+  res.json({ success: true, data: { total, avgAge, majorCount } });
+});
+
 router.get('/:id', (req, res) => {
   const student = getById(req.params.id);
   if (!student) {

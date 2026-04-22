@@ -132,3 +132,13 @@ test('GET /api/students/search?name=不存在的名字 返回空', async () => {
   const res = await request(app).get('/api/students/search?name=不存在');
   expect(res.body.data).toHaveLength(0);
 });
+
+// GET /api/students/stats
+test('GET /api/students/stats 返回统计数据', async () => {
+  const res = await request(app).get('/api/students/stats');
+  expect(res.status).toBe(200);
+  expect(res.body.success).toBe(true);
+  expect(res.body.data.total).toBe(3);
+  expect(res.body.data.avgAge).toBe(21);
+  expect(res.body.data.majorCount).toEqual({ '计算机科学': 1, '软件工程': 1, '数据科学': 1 });
+});

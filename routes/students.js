@@ -2,6 +2,20 @@ const express = require('express');
 const router = express.Router();
 const { getAll, getById, create, update, remove } = require('../src/students');
 
+router.get('/health', (req, res) => {
+  const students = getAll();
+  res.json({
+    success: true,
+    data: {
+      status: 'ok',
+      uptime: process.uptime().toFixed(0) + 's',
+      totalStudents: students.length,
+      memory: (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(1) + 'MB',
+      timestamp: new Date().toISOString()
+    }
+  });
+});
+
 router.get('/', (req, res) => {
   const students = getAll();
   const { major } = req.query;

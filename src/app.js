@@ -9,7 +9,7 @@ app.use(express.json());
 app.get('/', (req, res) => {
   res.json({
     message: '学生管理系统 API',
-    version: '1.0.0',
+    version: '1.1.0',
     endpoints: {
       'GET /api/students': '获取所有学生',
       'GET /api/students/stats': '获取学生统计数据',
